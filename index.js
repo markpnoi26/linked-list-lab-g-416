@@ -37,5 +37,34 @@ function addressAt(index, linkedList, collection) {
 }
 
 function indexAt(node, collection, linkedList) {
-  
+  let currentIndex = 0
+  let currentNode = headNode(linkedList, collection)
+  while (currentNode !== node) {
+    currentIndex += 1
+    currentNode = collection[currentNode.next]
+  }
+
+  return currentIndex
+}
+
+function insertNodeAt(index, newNodeAddress, linkedList, collection) {
+  let prevNode = nodeAt(index - 1, linkedList, collection)
+  let currentNodeAddress = addressAt(index, linkedList, collection)
+  let newNode = collection[newNodeAddress]
+
+  prevNode.next = newNodeAddress
+  newNode.next = currentNodeAddress
+
+}
+
+function deleteNodeAt(index, linkedList, collection) {
+  let prevNode;
+  index === 0? prevNode = null: prevNode = collection[addressAt(index-1, linkedList, collection)]
+
+  if (prevNode === null) {
+    nodeAt(index, linkedList, collection).next = null
+  } else {
+    prevNode.next = addressAt(index + 1, linkedList, collection)
+  }
+
 }
